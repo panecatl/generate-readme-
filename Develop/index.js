@@ -116,10 +116,29 @@ const questions = () => {
 };
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+const writeFile = data => {
+    fs.writeFile('README.md', data, err => {
+        // to catch any errors
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log('Your README has been creeated successfully!')
+        }
+    })
+};
 
 // TODO: Create a function to initialize app
-function init() {}
+
 
 // Function call to initialize app
-init();
+questions()
+    .then(answers => {
+        return generatePage(answers);
+    })
+    .then(data => {
+        return writeFile(data);
+    })
+    .catch(err => {
+        console.log(err)
+    })
